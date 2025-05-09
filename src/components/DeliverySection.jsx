@@ -13,7 +13,7 @@ export default function DeliverySection() {
 
             <div className="flex flex-row items-center justify-between px-0 w-full">
                 <div className="ml-0 w-1/2 pr-[10px] relative">
-                    <Link href="/page1">
+                    <Link href="/forest">
                         <div className="relative">
                             <Image
                                 src="/images/pexels-pixabay-33109.jpg" // ✅ ใช้ path จาก public folder
