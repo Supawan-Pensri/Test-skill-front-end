@@ -21,14 +21,14 @@ export default function ErewhonStore() {
         setIsMenuOpen(!isMenuOpen);
     };
     const categories = [
-        { name: 'Combo Plates', image: '/api/placeholder/200/200' },
-        { name: 'Smoothies', image: '/api/placeholder/200/200' },
-        { name: 'Pantry', image: '/api/placeholder/200/200' },
-        { name: 'Dairy & Eggs', image: '/api/placeholder/200/200' },
-        { name: 'Meat & Seafood', image: '/api/placeholder/200/200' },
-        { name: 'Breakfast', image: '/api/placeholder/200/200' },
-        { name: 'Sandwiches & Wraps', image: '/api/placeholder/200/200' },
-        { name: 'Coffee', image: '/api/placeholder/200/200' },
+        { name: 'Combo Plates', image: '/images/7575071000-1.png' },
+        { name: 'Smoothies', image: '/images/image.png' },
+        { name: 'Pantry', image: '/images/436e3b677d7a4394fdca3f35e8f731e5.webp' },
+        { name: 'Dairy & Eggs', image: '/images/egg.webp' },
+        { name: 'Meat & Seafood', image: '/images/meat.webp' },
+        { name: 'Breakfast', image: '/images/breakfast.webp' },
+        { name: 'Sandwiches & Wraps', image: '/images/sanwiche.webp' },
+        { name: 'Coffee', image: '/images/coffee.webp' },
     ];
     const sidebarMenuItems = [
         { name: "Member", link: "#" },
@@ -45,38 +45,38 @@ export default function ErewhonStore() {
 
     const featuredItems = [
         {
-            title: 'C.R.A.P. SMOOTHIE',
-            subtitle: 'WHO GIVES A CRAP',
-            cta: 'BECOME A MEMBER, TRY FOR FREE',
-            image: '/api/placeholder/500/300',
+            // title: 'C.R.A.P. SMOOTHIE',
+            // subtitle: 'WHO GIVES A CRAP',
+            // cta: 'BECOME A MEMBER, TRY FOR FREE',
+            image: '/images/sm.webp',
             backgroundColor: 'bg-pink-300'
         },
         {
-            title: 'DAILY SPECIALS',
-            subtitle: 'TUESDAY',
-            image: '/api/placeholder/500/300',
+            // title: 'DAILY SPECIALS',
+            // subtitle: 'TUESDAY',
+            image: '/images/sm.webp',
             backgroundColor: 'bg-amber-50'
         },
         {
             title: 'EAT IN SEASON',
-            image: '/api/placeholder/500/300',
+            image: '/images/vg.webp',
             backgroundColor: 'bg-green-100'
         },
         {
             title: 'EREWHON',
             subtitle: 'EXPLORE THE',
-            image: '/api/placeholder/500/300',
+            image: '/images/vg.webp',
             backgroundColor: 'bg-gray-100'
         },
     ];
 
         const hotBarItems = [
-            { image: '/api/placeholder/200/200', label: 'DAILY SPECIAL' },
-            { image: '/api/placeholder/200/200', label: 'DAILY SPECIAL' },
-            { image: '/api/placeholder/200/200', label: 'DAILY SPECIAL' },
-            { image: '/api/placeholder/200/200', label: 'DAILY SPECIAL' },
-            { image: '/api/placeholder/200/200', label: 'DAILY SPECIAL' },
-            { image: '/api/placeholder/200/200', label: 'DAILY SPECIAL' },
+            { image: '/images/sm.webp', label: 'DAILY SPECIAL' },
+            { image: '/images/vg.webp', label: 'DAILY SPECIAL' },
+            { image: '/images/7575071000-1.png', label: 'DAILY SPECIAL' },
+            { image: '/images/7575071000-1.png', label: 'DAILY SPECIAL' },
+            { image: '/images/7575071000-1.png', label: 'DAILY SPECIAL' },
+            { image: '/images/7575071000-1.png', label: 'DAILY SPECIAL' },
         ];
 
         return (
