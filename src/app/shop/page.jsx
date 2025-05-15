@@ -9,7 +9,9 @@ import {
     Search,
     Menu,
     User,
-    X
+    X,
+    Mail,
+    Lock
 } from 'lucide-react';
 
 export default function ErewhonStore() {
@@ -30,9 +32,30 @@ export default function ErewhonStore() {
 
     const [cartCount, setCartCount] = useState(0);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [rememberMe, setRememberMe] = useState(false);
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
+    };
+    
+    const openLoginModal = () => {
+        setIsLoginModalOpen(true);
+    };
+
+    const closeLoginModal = () => {
+        setIsLoginModalOpen(false);
+    };
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        // ตรงนี้จะเป็นการจัดการตรวจสอบข้อมูลและเข้าสู่ระบบ
+        console.log('Logging in with:', { email, password, rememberMe });
+        // สำหรับตัวอย่าง เราจะแค่ปิด modal และแสดงข้อความ
+        alert(`ล็อกอินสำเร็จ! ยินดีต้อนรับ ${email}`);
+        closeLoginModal();
     };
     
     const categories = [
@@ -110,7 +133,10 @@ export default function ErewhonStore() {
                     <button className="bg-gray-100 text-black px-4 py-2 rounded border border-gray-300 text-sm font-medium flex-1">
                         Create Account
                     </button>
-                    <button className="bg-gray-800 text-white px-4 py-2 rounded text-sm font-medium flex-1">
+                    <button 
+                        className="bg-gray-800 text-white px-4 py-2 rounded text-sm font-medium flex-1"
+                        onClick={openLoginModal}
+                    >
                         Log in
                     </button>
                 </div>
@@ -166,7 +192,7 @@ export default function ErewhonStore() {
                             </div>
                         </div>
 
-                        <User className="w-6 h-6" />
+                        {/* <User className="w-6 h-6" /> */}
 
                         <div className="relative">
                             <ShoppingBag className="w-6 h-6" />
@@ -175,7 +201,10 @@ export default function ErewhonStore() {
                             </span>
                         </div>
 
-                        <button className="bg-gray-200 text-black px-4 py-2 rounded text-sm font-medium">
+                        <button 
+                            className="bg-gray-200 text-black px-4 py-2 rounded text-sm font-medium"
+                            onClick={openLoginModal}
+                        >
                             Log in
                         </button>
                     </div>
@@ -188,7 +217,7 @@ export default function ErewhonStore() {
                 <div className="mb-10">
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl font-medium">Popular Categories</h2>
-                        <a href="#" className="text-sm flex items-center gap-1">
+                        <a href="/home" className="text-sm flex items-center gap-1">
                             View All
                             <ChevronRight className="w-4 h-4" />
                         </a>
@@ -257,7 +286,7 @@ export default function ErewhonStore() {
                     <div className="flex justify-between items-center mb-6">
                         <h2 className="text-xl font-medium">Today's Hot Bar Menu</h2>
                         <div className="flex items-center gap-2">
-                            <a href="#" className="text-sm flex items-center gap-1">
+                            <a href="/home" className="text-sm flex items-center gap-1">
                                 View All
                             </a>
                             <div className="flex gap-1">
@@ -291,12 +320,141 @@ export default function ErewhonStore() {
             </main>
 
             {/* Accessibility Button */}
-            <button className="fixed bottom-4 right-4 bg-black text-white p-2 rounded-full">
+            {/* <button className="fixed bottom-4 right-4 bg-black text-white p-2 rounded-full">
                 <span className="sr-only">Accessibility</span>
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 12H6M12 6v12" />
                 </svg>
-            </button>
+            </button> */}
+
+            {/* Login Modal */}
+            {isLoginModalOpen && (
+                <>
+                    <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+                        <div className="bg-white rounded-lg p-6 max-w-md w-full shadow-xl relative">
+                            <button
+                                onClick={closeLoginModal}
+                                className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+                            >
+                                <X className="w-6 h-6" />
+                            </button>
+                            
+                            <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
+                            
+                            <form onSubmit={handleLogin} className="space-y-4">
+                                <div className="space-y-2">
+                                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Mail className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            id="email"
+                                            name="email"
+                                            type="email"
+                                            required
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            className="pl-10 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
+                                            placeholder="you@example.com"
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <div className="space-y-2">
+                                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Lock className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            id="password"
+                                            name="password"
+                                            type="password"
+                                            required
+                                            value={password}
+                                            onChange={(e) => setPassword(e.target.value)}
+                                            className="pl-10 block w-full rounded-md border border-gray-300 shadow-sm py-2 px-3 focus:outline-none focus:ring-1 focus:ring-black focus:border-black"
+                                            placeholder="••••••••"
+                                        />
+                                    </div>
+                                </div>
+                                
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center">
+                                        <input
+                                            id="remember-me"
+                                            name="remember-me"
+                                            type="checkbox"
+                                            checked={rememberMe}
+                                            onChange={(e) => setRememberMe(e.target.checked)}
+                                            className="h-4 w-4 text-black focus:ring-black border-gray-300 rounded"
+                                        />
+                                        <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                                            Remember me
+                                        </label>
+                                    </div>
+                                    
+                                    <div className="text-sm">
+                                        <a href="#" className="font-medium text-black hover:text-gray-700">
+                                            Forgot password?
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <button
+                                        type="submit"
+                                        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
+                                    >
+                                        Sign in
+                                    </button>
+                                </div>
+                            </form>
+                            
+                            <div className="mt-6">
+                                <div className="relative">
+                                    <div className="absolute inset-0 flex items-center">
+                                        <div className="w-full border-t border-gray-300"></div>
+                                    </div>
+                                    <div className="relative flex justify-center text-sm">
+                                        <span className="px-2 bg-white text-gray-500">Or continue with</span>
+                                    </div>
+                                </div>
+                                
+                                <div className="mt-6 grid grid-cols-2 gap-3">
+                                    <div>
+                                        <a href="#" className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                            <span className="sr-only">Sign in with Google</span>
+                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.748L12.545,10.239z" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    
+                                    <div>
+                                        <a href="#" className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                                            <span className="sr-only">Sign in with Facebook</span>
+                                            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                                <path fillRule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clipRule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="mt-6 text-center text-sm">
+                                <p className="text-gray-600">
+                                    Don't have an account? 
+                                    <a href="#" className="font-medium text-black hover:text-gray-700 ml-1">
+                                        Sign up
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </>
+            )}
 
             <style jsx>{`
         .hide-scrollbar::-webkit-scrollbar {
