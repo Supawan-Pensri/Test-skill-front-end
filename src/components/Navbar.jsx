@@ -1,190 +1,161 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
-const Navbar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const pathname = usePathname();
+import {
+    ChevronLeft,
+    ChevronRight,
+    ShoppingBag,
+    Search,
+    Menu,
+    User,
+    X,
+    Mail,
+    Lock
+} from 'lucide-react';
 
-    // ตรวจจับการ scroll เพื่อเปลี่ยนสไตล์ของ navbar
-    useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 10) {
-                setScrolled(true);
-            } else {
-                setScrolled(false);
-            }
-        };
 
-        window.addEventListener("scroll", handleScroll);
-        return () => {
-            window.removeEventListener("scroll", handleScroll);
-        };
-    }, []);
+export default function Navbar({ brandName = 'BrandName' }) {
+    const router = useRouter()
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isLoginOpen, setIsLoginOpen] = useState(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [searchQuery, setSearchQuery] = useState('')
+    const [cartCount, setCartCount] = useState(0);
 
-    // Toggle menu สำหรับทุกขนาดหน้าจอ
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    // รายการเมนู
-    const menuItems = [
-        { title: "Delivery | Pickup", href: "/delivery-pickup" },
-        { title: "Ship Anywhere", href: "/shipping" },
-        { title: "Catering", href: "/catering" },
-        { title: "Membership", href: "/membership" },
-        { title: "Digital Gift Cards", href: "/gift-cards" },
-        { title: "Locations", href: "/locations" },
-        { title: "FAQs", href: "/faqs" },
-        { title: "Our Mission", href: "/mission" },
-        { title: "Contact Us", href: "/contact" }
+    const openLoginModal = () => {
+        setIsLoginModalOpen(true);
+    };
+
+    const closeLoginModal = () => {
+        setIsLoginModalOpen(false);
+    };
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        // ตรงนี้จะเป็นการจัดการตรวจสอบข้อมูลและเข้าสู่ระบบ
+        console.log('Logging in with:', { email, password, rememberMe });
+        // สำหรับตัวอย่าง เราจะแค่ปิด modal และแสดงข้อความ
+        alert(`ล็อกอินสำเร็จ! ยินดีต้อนรับ ${email}`);
+        closeLoginModal();
+    };
+
+    const sidebarMenuItems = [
+        { name: "Member", link: "#" },
+        { name: "Browse", link: "#" },
+        { name: "Routine", link: "#" },
+        { name: "Ship Anywhere", link: "#" },
+        { name: "Digital Gift Cards", link: "#" },
+        { name: "Catering", link: "#" },
+        { name: "Locations", link: "#" },
+        { name: "FAQs", link: "#" },
+        { name: "Our Mission", link: "#" },
+        { name: "Contact Us", link: "#" },
     ];
 
     return (
-        <nav
-            className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? "bg-black shadow-md py-2" : "bg-black py-4"
-                }`}
-        >
-            <div className="w-full px-4">
-                <div className="flex items-center">
-                    {/* Menu Button - ฝั่งซ้าย */}
-                    <div className="w-1/4">
-                    
-                        <button
-                            onClick={toggleMenu}
-                            className="focus:outline-none"
-                            aria-label="Toggle menu"
-                        >
-                            <svg
-                                className="w-6 h-6 text-white"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                {isMenuOpen ? (
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M6 18L18 6M6 6l12 12"
-                                    />
-                                ) : (
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="M4 6h16M4 12h16M4 18h16"
-                                    />
-                                )}
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    {/* Logo - จัดกึ่งกลาง */}
-                    <div className="w-2/4 text-center">
-                        <Link href="/" className="text-xl font-bold text-white">
-                            BrandName
-                        </Link>
-                    </div>
-
-                    {/* พื้นที่ฝั่งขวา - แก้ไขเพิ่มไอคอน */}
-                    <div className="w-1/4 flex justify-end items-center space-x-4">
-                        {/* ไอคอนตะกร้าสินค้า */}
-                        <Link href="/cart" className="relative group">
-                            <svg 
-                                className="w-6 h-6 text-white opacity-80 hover:opacity-100 transition-opacity" 
-                                fill="none" 
-                                stroke="currentColor" 
-                                viewBox="0 0 24 24" 
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path 
-                                    strokeLinecap="round" 
-                                    strokeLinejoin="round" 
-                                    strokeWidth="2" 
-                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                                >
-                                </path>
-                            </svg>
-                            {/* Badge - สามารถเพิ่มตัวเลขจำนวนสินค้าในตะกร้าได้ */}
-                            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
-                                0
-                            </span>
-                        </Link>
-
-                        {/* ไอคอนโปรไฟล์ผู้ใช้ */}
-                        <Link href="/account" className="group">
-                            <svg 
-                                className="w-6 h-6 text-white opacity-80 hover:opacity-100 transition-opacity" 
-                                fill="none" 
-                                stroke="currentColor" 
-                                viewBox="0 0 24 24" 
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path 
-                                    strokeLinecap="round" 
-                                    strokeLinejoin="round" 
-                                    strokeWidth="2" 
-                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                                >
-                                </path>
-                            </svg>
-                        </Link>
-                    </div>
+        <div className='sticky top-0 z-50'>
+            {/* Sidebar Menu */}
+            <div className={`fixed left-0 top-0 h-full w-64 bg-gray-100 z-50 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}>
+                <div className="p-4 flex justify-between items-center border-b border-gray-200">
+                    <span className="font-semibold">WELCOME</span>
+                    <button onClick={toggleMenu} className="text-gray-500 hover:text-gray-700">
+                        <X className="w-6 h-6" />
+                    </button>
                 </div>
 
-                {/* Menu Overlay - แสดงเมื่อกดปุ่มเมนู (ทั้ง desktop และ mobile) */}
-                {isMenuOpen && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={toggleMenu}>
-                        <div 
-                            className="absolute top-0 left-0 w-full sm:w-80 h-full bg-black text-white shadow-lg py-8 px-4"
-                            onClick={(e) => e.stopPropagation()}
+                <div className="flex justify-center gap-2 p-4">
+                    <button className="bg-gray-100 text-black px-4 py-2 rounded border border-gray-300 text-sm font-medium flex-1">
+                        Create Account
+                    </button>
+                    <button
+                        className="bg-gray-800 text-white px-4 py-2 rounded text-sm font-medium flex-1"
+                        onClick={openLoginModal}
+                    >
+                        Log in
+                    </button>
+                </div>
+
+                <div className="py-2">
+                    {sidebarMenuItems.map((item, index) => (
+                        <a
+                            key={index}
+                            href={item.link}
+                            className="block px-4 py-3 text-gray-800 hover:bg-gray-200 transition-colors duration-150"
                         >
-                            <div className="flex justify-end mb-6">
-                                <button 
-                                    onClick={toggleMenu}
-                                    className="focus:outline-none"
-                                    aria-label="Close menu"
-                                >
-                                    <svg
-                                        className="w-6 h-6 text-white"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M6 18L18 6M6 6l12 12"
-                                        />
-                                    </svg>
-                                </button>
-                            </div>
-                            <div className="flex flex-col space-y-4">
-                                {menuItems.map((item) => (
-                                    <Link
-                                        key={item.href}
-                                        href={item.href}
-                                        className={`py-2 px-4 hover:bg-gray-800 transition-colors rounded-md ${pathname === item.href ? "text-blue-400 font-medium" : "text-gray-300"
-                                            }`}
-                                        onClick={() => setIsMenuOpen(false)}
-                                    >
-                                        {item.title}
-                                    </Link>
-                                ))}
+                            {item.name}
+                        </a>
+                    ))}
+                </div>
+            </div>
+
+            {/* Overlay when menu is open */}
+            {isMenuOpen && (
+                <div
+                    className="fixed inset-0 bg-black bg-opacity-50 z-40"
+                    onClick={toggleMenu}
+                ></div>
+            )}
+
+
+            {/* Header */}
+            <header className="sticky top-0 z-50 bg-black text-white p-4">
+                <div className="flex justify-between items-center">
+                    <div className="flex items-center gap-4">
+                        <button onClick={toggleMenu} className="cursor-pointer">
+                            <Menu className="w-6 h-6" />
+                        </button>
+                        <a href="/" className="text-2xl font-bold tracking-widest">BrandName</a>
+                    </div>
+
+                    <div className="relative w-full max-w-md mx-4">
+                        <input
+                            type="text"
+                            placeholder="Search"
+                            className="w-full bg-gray-800 rounded-full py-2 px-4 text-sm focus:outline-none text-white"
+                        />
+                        <Search className="absolute right-3 top-2 w-5 h-5 text-gray-400" />
+                    </div>
+
+                    <div className="flex items-center gap-6">
+                        <div className="flex items-center gap-2">
+                            <div className="text-xs">Pickup (ASAP)</div>
+                            <div className="text-xs">|</div>
+                            <div className="flex items-center gap-1">
+                                <span className="text-xs">Grove</span>
+                                <ChevronRight className="w-4 h-4" />
                             </div>
                         </div>
-                    </div>
-                )}
-            </div>
-        </nav>
-    );
-};
 
-export default Navbar;
+                        {/* <User className="w-6 h-6" /> */}
+
+                        <div className="relative">
+                            <ShoppingBag className="w-6 h-6" />
+                            <span className="absolute -top-1 -right-1 bg-white text-black rounded-full w-4 h-4 flex items-center justify-center text-xs font-bold">
+                                {cartCount}
+                            </span>
+                        </div>
+
+                        <button
+                            className="bg-gray-200 text-black px-4 py-2 rounded text-sm font-medium"
+                            onClick={openLoginModal}
+                        >
+                            Log in
+                        </button>
+                    </div>
+                </div>
+            </header>
+        </div>
+    )
+}
+
+
+
