@@ -166,7 +166,7 @@ export default function ErewhonStore() {
                         <button onClick={toggleMenu} className="cursor-pointer">
                             <Menu className="w-6 h-6" />
                         </button>
-                        <a href="#" className="text-2xl font-bold tracking-widest">BrandName</a>
+                        <a href="/" className="text-2xl font-bold tracking-widest">BrandName</a>
                     </div>
 
                     <div className="relative w-full max-w-md mx-4">
@@ -319,15 +319,6 @@ export default function ErewhonStore() {
                     </div>
                 </div>
             </main>
-
-            {/* Accessibility Button */}
-            {/* <button className="fixed bottom-4 right-4 bg-black text-white p-2 rounded-full">
-                <span className="sr-only">Accessibility</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 12H6M12 6v12" />
-                </svg>
-            </button> */}
-
             {/* Login Modal */}
             {isLoginModalOpen && (
                 <>
